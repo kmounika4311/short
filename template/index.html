@@ -9,6 +9,7 @@
     <!-- <nav>
         ...
     </nav> -->
+    {%if user.is_authenticated%}
     <h1>Shorten Your URL's</h1>
     <form action="" method="post">
         {%csrf_token%}
@@ -16,5 +17,14 @@
         <input type="text" name="url" id="">
         <input type="submit" value="Generate Short Url">
     </form>
+    {%else%}
+    <h1>You need to log in befor using our service.</h1>
+    <a href="{% url 'login' %}">Login Here</a>
+    {%endif%}
+    <br><br><hr>
+    {%for url in urls%}
+    <li>OriginalUrl: {{url.url}}</li>
+    <li><a href="http://localhost:8000/u/{{url.code}}">localhost:8000/u/{{url.code}}</a></li>
+    {%endfor%}
 </body>
 </html>
